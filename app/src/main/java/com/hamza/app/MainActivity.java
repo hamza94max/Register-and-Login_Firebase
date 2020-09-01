@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,14 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
 
-EditText name ,email,passward;
-Button signup;
-private FirebaseDatabase database;
-private DatabaseReference mDatabase;
-private FirebaseAuth mAuth;
-private static final String USER="user";
-private static final String TAG="MainActivity";
-private User user ;
+    EditText name ,email,passward;
+    Button signup;
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private static final String USER="user";
+    private static final String TAG="MainActivity";
+    private User user ;
 
 
 
@@ -49,23 +48,21 @@ private User user ;
     mDatabase=database.getReference(USER);
     mAuth=FirebaseAuth.getInstance();
 
-signup.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        String emaill=email.getText().toString();
-        String pass=passward.getText().toString();
-        if (TextUtils.isEmpty(emaill)|| TextUtils.isEmpty(pass)){
-            Toast.makeText(MainActivity.this, "Enter email and passward ", Toast.LENGTH_LONG).show();
-            return;
+    signup.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String emaill=email.getText().toString();
+            String pass=passward.getText().toString();
+            if (TextUtils.isEmpty(emaill)|| TextUtils.isEmpty(pass)){
+                Toast.makeText(MainActivity.this, "Enter email and passward ", Toast.LENGTH_LONG).show();
+                return;
+            }
+            String fullname =name.getText().toString();
+           user =new User (emaill,pass,fullname);
+            registerUser(emaill,pass);
+
         }
-        String fullname =name.getText().toString();
-       user =new User (emaill,pass,fullname);
-        registerUser(emaill,pass);
-
-    }
-});
-
-    }
+    }); }
 
     public  void registerUser(String email,String password){
 
@@ -87,28 +84,19 @@ signup.setOnClickListener(new View.OnClickListener() {
 
                         // ...
                     }
-                });
-    }
+                });}
 
-public  void updateUI(FirebaseUser currentuser){
+    public  void updateUI(FirebaseUser currentuser){
 
-String keyId =mDatabase.push().getKey();
-mDatabase.child(keyId).setValue(user);
+    String keyId =mDatabase.push().getKey();
+    mDatabase.child(keyId).setValue(user);
 
-Intent afterlogin =new Intent(getBaseContext(),AfterLogin.class);
-startActivity(afterlogin);
-
-
-}
-
-
-
-
-
+    Intent afterlogin =new Intent(getBaseContext(),LoginActivity.class);
+    startActivity(afterlogin);
+    finish(); }
 
     public void loginbtn(View view) {
 
         Intent intent=new Intent(getBaseContext(),LoginActivity.class);
         startActivity(intent);
-    }
-}
+        finish(); }}
