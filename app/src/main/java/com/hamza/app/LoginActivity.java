@@ -2,12 +2,16 @@ package com.hamza.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,18 +20,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.hamza.app.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText Email,passlogin;
     Button loginbtn ;
     TextView forgetpass;
+    CheckBox rememberme;
+
 
 
     private FirebaseAuth mAuth;
     private String email,password ;
     private final String TAG ="LoginActivity";
     private Userlogin userlogin ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         passlogin=findViewById(R.id.passlogin);
         loginbtn=findViewById(R.id.loginbtn);
         forgetpass=findViewById(R.id.forgetpass);
+        rememberme=findViewById(R.id.remeber);
+
+        ActivityLoginBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
+
+
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
 
 
 
@@ -50,16 +65,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String email =Email.getText().toString();
-                String password =passlogin.getText().toString();
 
 
-                if (TextUtils.isEmpty(email)||TextUtils.isEmpty(password)){
+
+                if (TextUtils.isEmpty(Email.getText())||TextUtils.isEmpty(passlogin.getText())){
                     Toast.makeText(LoginActivity.this, "Enter Email and password !", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-signinUser(email,password);
+            signinUser(email,password);
+
 
             }
         }); }
@@ -69,7 +84,6 @@ signinUser(email,password);
 
             Intent afterlogin =new Intent(getBaseContext(),AfterLogin.class);
             afterlogin.putExtra("email",currentUser.getEmail());
-
             startActivity(afterlogin);
 
 
@@ -100,6 +114,8 @@ signinUser(email,password);
 
 
 
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -127,5 +143,9 @@ signinUser(email,password);
 
     public void Gosignup(View view) {
         goback(view);
+    }
+
+
+    public void rememberme(View view) {
     }
 }

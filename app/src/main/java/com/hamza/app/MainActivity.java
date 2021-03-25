@@ -2,6 +2,9 @@ package com.hamza.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,12 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hamza.app.Model.User;
+import com.hamza.app.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    EditText name ,email,passward;
-    Button signup;
+
     private FirebaseDatabase database;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -38,26 +42,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-    name =findViewById(R.id.name);
-    email =findViewById(R.id.email);
-    passward =findViewById(R.id.passward);
-    signup=findViewById(R.id.signup);
+
+
+
+    final ActivityMainBinding mainBinding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+
+
+
 
 
     database=FirebaseDatabase.getInstance();
     mDatabase=database.getReference(USER);
     mAuth=FirebaseAuth.getInstance();
 
-    signup.setOnClickListener(new View.OnClickListener() {
+    mainBinding.signup.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String emaill=email.getText().toString();
-            String pass=passward.getText().toString();
+            String emaill=mainBinding.email.getText().toString();
+            String pass=mainBinding.passward.getText().toString();
             if (TextUtils.isEmpty(emaill)|| TextUtils.isEmpty(pass)){
-                Toast.makeText(MainActivity.this, "Enter email and passward ", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Enter email and passward !", Toast.LENGTH_LONG).show();
                 return;
             }
-            String fullname =name.getText().toString();
+            String fullname =mainBinding.name.getText().toString();
            user =new User (emaill,pass,fullname);
             registerUser(emaill,pass);
 
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
+
                     }
                 });}
 
@@ -91,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
     String keyId =mDatabase.push().getKey();
     mDatabase.child(keyId).setValue(user);
 
-    Intent afterlogin =new Intent(getBaseContext(),LoginActivity.class);
-    startActivity(afterlogin);
+    Intent login =new Intent(getBaseContext(),AfterLogin.class);
+    startActivity(login);
     finish(); }
 
     public void loginbtn(View view) {
