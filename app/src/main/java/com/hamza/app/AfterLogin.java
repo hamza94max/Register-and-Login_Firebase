@@ -16,13 +16,5 @@ public class AfterLogin extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
     }
 }
