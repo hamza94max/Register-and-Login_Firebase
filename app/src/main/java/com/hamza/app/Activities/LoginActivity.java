@@ -1,11 +1,10 @@
-package com.hamza.app;
+package com.hamza.app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.hamza.app.R;
+import com.hamza.app.Userlogin;
 import com.hamza.app.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser currentUser) {
 
 
-            Intent afterlogin =new Intent(getBaseContext(),AfterLogin.class);
+            Intent afterlogin =new Intent(getBaseContext(), AfterLogin.class);
             afterlogin.putExtra("email",currentUser.getEmail());
             startActivity(afterlogin);
 
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void goback(View view) {
 
-        Intent intent=new Intent(getBaseContext(),MainActivity.class);
+        Intent intent=new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
     }
 
