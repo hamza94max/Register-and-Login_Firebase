@@ -1,4 +1,4 @@
-package com.hamza.app;
+package com.hamza.app.Model;
 
 public class Userlogin {
     private String email ;

@@ -20,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hamza.app.R;
-import com.hamza.app.Userlogin;
+import com.hamza.app.Model.Userlogin;
 import com.hamza.app.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,9 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText Email,passlogin;
     Button loginbtn ;
     TextView forgetpass;
-    CheckBox rememberme;
-
-
 
     private FirebaseAuth mAuth;
     private String email,password ;
@@ -44,15 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        Email=findViewById(R.id.emaillogin);
-        passlogin=findViewById(R.id.passlogin);
-        loginbtn=findViewById(R.id.loginbtn);
-        forgetpass=findViewById(R.id.forgetpass);
-        rememberme=findViewById(R.id.remeber);
-
-        ActivityLoginBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
-
-
+        Email = findViewById(R.id.emaillogin);
+        passlogin = findViewById(R.id.passlogin);
+        loginbtn = findViewById(R.id.loginbtn);
+        forgetpass = findViewById(R.id.forgetpass);
 
 
         // Initialize Firebase Auth
@@ -83,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser currentUser) {
 
 
-            Intent afterlogin =new Intent(getBaseContext(), AfterLogin.class);
+            Intent afterlogin = new Intent(getBaseContext(), AfterLogin.class);
             afterlogin.putExtra("email",currentUser.getEmail());
             startActivity(afterlogin);
 

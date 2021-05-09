@@ -1,17 +1,14 @@
-package com.hamza.app;
+package com.hamza.app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hamza.app.Model.User;
+import com.hamza.app.R;
 import com.hamza.app.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,28 +39,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ActivityMainBinding mainBinding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+        final ActivityMainBinding mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
 
 
 
 
-    database=FirebaseDatabase.getInstance();
-    mDatabase=database.getReference(USER);
-    mAuth=FirebaseAuth.getInstance();
+    database = FirebaseDatabase.getInstance();
+    mDatabase = database.getReference(USER);
+    mAuth = FirebaseAuth.getInstance();
 
     mainBinding.signup.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String emaill=mainBinding.email.getText().toString();
-            String pass=mainBinding.passward.getText().toString();
-            if (TextUtils.isEmpty(emaill)|| TextUtils.isEmpty(pass)){
+            String email = mainBinding.email.getText().toString();
+            String pass = mainBinding.passward.getText().toString();
+            if (TextUtils.isEmpty(email)|| TextUtils.isEmpty(pass)){
                 Toast.makeText(MainActivity.this, "Enter email and passward !", Toast.LENGTH_LONG).show();
                 return;
             }
-            String fullname =mainBinding.name.getText().toString();
-           user =new User (emaill,pass,fullname);
-            registerUser(emaill,pass);
+            String fullname = mainBinding.name.getText().toString();
+            user = new User (email,pass,fullname);
+            registerUser(email,pass);
 
         }
     }); }
@@ -78,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -89,17 +88,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });}
 
-    public  void updateUI(FirebaseUser currentuser){
+        public  void updateUI(FirebaseUser currentuser){
 
-    String keyId =mDatabase.push().getKey();
-    mDatabase.child(keyId).setValue(user);
+        String keyId = mDatabase.push().getKey();
+        mDatabase.child(keyId).setValue(user);
 
-    Intent login =new Intent(getBaseContext(),AfterLogin.class);
-    startActivity(login);
-    finish(); }
+        Intent login = new Intent(getBaseContext(), AfterLogin.class);
+        startActivity(login);
+        finish(); }
 
-    public void loginbtn(View view) {
+        public void loginbtn(View view) {
 
-        Intent intent=new Intent(getBaseContext(),LoginActivity.class);
-        startActivity(intent);
-        finish(); }}
+            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+            startActivity(intent);
+            finish(); }}
