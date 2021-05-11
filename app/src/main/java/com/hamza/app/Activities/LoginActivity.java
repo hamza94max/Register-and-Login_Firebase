@@ -2,7 +2,6 @@ package com.hamza.app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +18,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hamza.app.R;
-import com.hamza.app.Model.Userlogin;
-import com.hamza.app.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email,password ;
     private final String TAG ="LoginActivity";
-    private Userlogin userlogin ;
 
 
     @Override
@@ -129,16 +124,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void forgetpassword(View view) {
 
-
-    }
 
     public void Gosignup(View view) {
         goback(view);
     }
 
 
-    public void rememberme(View view) {
-    }
+
 }
