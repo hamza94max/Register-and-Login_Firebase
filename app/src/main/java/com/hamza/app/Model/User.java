@@ -1,8 +1,6 @@
 package com.hamza.app.Model;
 
 public class User {
-
-
     private String email ;
     private String passward ;
     private String fullname ;
@@ -24,15 +22,9 @@ public class User {
     public String getEmail() {
         return email;
     }
-
-
-
     public String getPassward() {
         return passward;
     }
-
-
-
     public String getFullname() {
         return fullname;
     }

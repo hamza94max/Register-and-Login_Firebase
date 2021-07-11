@@ -13,7 +13,6 @@
         android:roundIcon="@drawable/joinbtn"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.UserActivity"></activity>
         <activity android:name=".Activities.AfterLogin" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.MainActivity">

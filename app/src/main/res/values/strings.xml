@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App</string>
     <string name="by_pressing_sign_up_you_agree_to_our_trems_and_conditions">By Pressing \'Sign up\' You agree to our trems and conditions</string>
+    <string name="create_your_n_account">Create Your \n Account</string>
 </resources>

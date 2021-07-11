@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:onClick="Gosignup"
+            android:onClick="gosignup"
             android:orientation="horizontal">
 
             <ImageView
@@ -93,9 +93,6 @@
                 android:paddingStart="15dp"
                 tools:ignore="HardcodedText,RtlSymmetry,UnusedAttribute" />
 
-
-
-
             <Button
                 android:id="@+id/loginbtn"
                 android:layout_width="280dp"
@@ -107,7 +104,6 @@
                 android:background="@drawable/joinbtn"
                 android:textColor="@color/whitecolor" />
 
-
             <TextView
                 android:id="@+id/forgetpass"
                 android:layout_width="match_parent"
@@ -117,11 +113,8 @@
                 android:textSize="18sp"
                 android:layout_marginTop="13dp"
                 android:text="Forget password ?"
-                android:onClick="forgetpassword"
+                android:onClick="forgetpassword" />
 
-
-                />
         </LinearLayout>
-
     </LinearLayout>
 </layout>

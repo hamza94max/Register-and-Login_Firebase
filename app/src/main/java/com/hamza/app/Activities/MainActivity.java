@@ -22,43 +22,55 @@ import com.hamza.app.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseDatabase database;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    private static final String USER="user";
-    private static final String TAG="MainActivity";
+    private static final String USER = "user";
+    private static final String TAG = "MainActivity";
     private User user ;
+
+    ActivityMainBinding mainBinding;
+
+    String email,password,fullname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ActivityMainBinding mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference(USER);
         mAuth = FirebaseAuth.getInstance();
 
             mainBinding.signup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String email = mainBinding.email.getText().toString();
-                    String pass = mainBinding.passward.getText().toString();
-                    if (TextUtils.isEmpty(email)|| TextUtils.isEmpty(pass)){
-                        Toast.makeText(MainActivity.this, "Enter email and passward !", Toast.LENGTH_LONG).show();
+
+                    getData();
+                    if (textisEmpty()){
+                        Toast.makeText(MainActivity.this, "Enter Email and Passward !", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    String fullname = mainBinding.name.getText().toString();
-                    user = new User (email,pass,fullname);
-                    registerUser(email,pass);
+                    user = new User (email,password,fullname);
+                    registerUser(email,password);
+                }}); }
 
-                }
-            }); }
 
-        public  void registerUser(String email,String password){
 
-            mAuth.createUserWithEmailAndPassword(email ,  password)
+        private void getData(){
+            email = mainBinding.email.getText().toString();
+            password = mainBinding.passward.getText().toString();
+            fullname = mainBinding.name.getText().toString();
+        }
+
+        private Boolean textisEmpty() {
+            return TextUtils.isEmpty(email) || TextUtils.isEmpty(password);
+        }
+
+        public void registerUser(String email,String password){
+
+            mAuth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -72,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     });}
 
@@ -89,4 +100,5 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(intent);
-                finish(); }}
+                finish(); }
+    }

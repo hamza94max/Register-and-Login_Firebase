@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
 
     </data>
@@ -47,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Your \n   Account"
+                android:text="@string/create_your_n_account"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/blackcolor"
@@ -102,10 +101,10 @@
                 android:background="@drawable/joinbtn" />
 
             <TextView
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="@string/by_pressing_sign_up_you_agree_to_our_trems_and_conditions"
-                android:textColor="@color/fullwhite"
+                android:textColor="@color/greencolor"
                 android:layout_marginTop="25dp" />
 
         </LinearLayout>

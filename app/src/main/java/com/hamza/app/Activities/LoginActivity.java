@@ -23,12 +23,11 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText Email,passlogin;
     Button loginbtn ;
-    TextView forgetpass;
+    TextView forgetpassword;
 
     private FirebaseAuth mAuth;
     private String email,password ;
     private final String TAG ="LoginActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,97 +38,64 @@ public class LoginActivity extends AppCompatActivity {
         Email = findViewById(R.id.emaillogin);
         passlogin = findViewById(R.id.passlogin);
         loginbtn = findViewById(R.id.loginbtn);
-        forgetpass = findViewById(R.id.forgetpass);
+        forgetpassword = findViewById(R.id.forgetpass);
 
-
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
-
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
-
-                if (TextUtils.isEmpty(Email.getText())||TextUtils.isEmpty(passlogin.getText())){
+                if (textisEmpty()){
                     Toast.makeText(LoginActivity.this, "Enter Email and password !", Toast.LENGTH_LONG).show();
-                    return;
                 }
-
             signinUser(email,password);
-
-
             }
-        }); }
-
-    private void updateUI(FirebaseUser currentUser) {
-
-
-            Intent afterlogin = new Intent(getBaseContext(), AfterLogin.class);
-            afterlogin.putExtra("email",currentUser.getEmail());
-            startActivity(afterlogin);
-
-
-
+        });
     }
 
-    public  void signinUser(String email,String password){
+    private Boolean textisEmpty(){
+        return TextUtils.isEmpty(Email.getText())||TextUtils.isEmpty(passlogin.getText());
+    }
+
+    public void signinUser(String email,String password){
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             updateUI(currentUser);
-                        } else {
-                            // If sign in fails, display a message to the user.
+                        }else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(getBaseContext(), "Wrong password or Email !", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
     }
 
-
-
-
+    private void updateUI(FirebaseUser currentUser) {
+        Intent afterlogin = new Intent(getBaseContext(), AfterLogin.class);
+        afterlogin.putExtra("email",currentUser.getEmail());
+        startActivity(afterlogin);
+    }
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser!=null){
+        if (currentUser != null){
             updateUI(currentUser);
         }
-
-
     }
 
-
     public void goback(View view) {
-
-        Intent intent=new Intent(getBaseContext(), MainActivity.class);
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
     }
 
-
-
-    public void Gosignup(View view) {
+    public void gosignup(View view) {
         goback(view);
     }
-
-
-
 }
